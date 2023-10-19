@@ -2,9 +2,9 @@ from flask import Flask, request, jsonify
 
 app = Flask(__name__)
 
-# Lista de películas (simulación de base de datos)
-
+# Lista de películas
 movies = []
+
 #Add Movie
 @app.route('/api/new-movie', methods=['POST'])
 def add_movie():
@@ -28,18 +28,18 @@ def add_movie():
 #Obtener Peliculas
 @app.route('/api/all-movies-by-genre/<string:genre>', methods=['GET'])
 def get_movies_by_genre(genre):
-    matching_movies = [movie for movie in movies if movie['genre'] == genre]
+    ver_peliculas = [movie for movie in movies if movie['genre'] == genre]
     
-    if not matching_movies:
+    if not ver_peliculas:
         return jsonify({"message": "No se encontraron películas en ese género"}), 404
 
     # Convierte el conjunto en una lista antes de serializarlo en JSON
-    matching_movies_list = list(matching_movies)
+    ver_peliculas_lista = list(ver_peliculas)
 
-    return jsonify(matching_movies_list)
+    return jsonify(ver_peliculas_lista)
 
 
-#Actualizar 
+#update 
 @app.route('/api/update-movie', methods=['PUT'])
 def update_movie():
     data = request.get_json()
